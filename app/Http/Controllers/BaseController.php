@@ -5,12 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Traits\FlashMessages;
 
+/**
+ * Class BaseController
+ * @package App\Http\Controllers
+ */
 class BaseController extends Controller
 {
     use FlashMessages;
-
+    /**
+     * @var null
+     */
     protected $data = null;
-
     /**
      * @param $title
      * @param $subTitle
@@ -19,7 +24,6 @@ class BaseController extends Controller
     {
         view()->share(['pageTitle' => $title, 'subTitle' => $subTitle]);
     }
-
     /**
      * @param int $errorCode
      * @param null $message
@@ -30,7 +34,6 @@ class BaseController extends Controller
         $data['message'] = $message;
         return response()->view('errors.' . $errorCode, $data, $errorCode);
     }
-
     /**
      * @param bool $error
      * @param int $responseCode
@@ -47,7 +50,6 @@ class BaseController extends Controller
             'data'          =>  $data
         ]);
     }
-
     /**
      * @param $route
      * @param $message
@@ -60,14 +62,11 @@ class BaseController extends Controller
     {
         $this->setFlashMessage($message, $type);
         $this->showFlashMessages();
-
         if ($error && $withOldInputWhenError) {
             return redirect()->back()->withInput();
         }
-
         return redirect()->route($route);
     }
-
     /**
      * @param $message
      * @param string $type
@@ -77,9 +76,8 @@ class BaseController extends Controller
      */
     protected function responseRedirectBack($message, $type = 'info', $error = false, $withOldInputWhenError = false)
     {
-        $this->setFlashMessages($message, $type);
+        $this->setFlashMessage($message, $type);
         $this->showFlashMessages();
-
         return redirect()->back();
     }
 }

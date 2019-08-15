@@ -3,11 +3,16 @@
 namespace App\Providers;
 
 use Config;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class SettingServiceProvider extends ServiceProvider
 {
+    /**
+     * @var bool
+     */
+    protected $defer = false;
     /**
      * Register services.
      *
@@ -21,7 +26,6 @@ class SettingServiceProvider extends ServiceProvider
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $loader->alias('Setting', Setting::class);
     }
-
     /**
      * Bootstrap services.
      *
